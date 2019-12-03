@@ -38,38 +38,71 @@ def hideHidden(opponent):
     return hidden
 
 def playerShot():
+
+    # Keeps firing if you target a tile you have already shot at before
     firing = 1
     while firing == 1:
-        column = input("Column: ")
-        row = int(input("Row: "))
-        if column == "A" or "a":
-            column = int(0)
-        if column == "B" or "b":
-            column = 1
-        if column == "C" or "c":
-            column = 2
-        if column == "D" or "d":
-            column = 3
-        if column == "E" or "e":
-            column = 4
-        if column == "F" or "f":
-            column = 5
-        if column == "G" or "g":
-            column = 6
-        if column == "H" or "h":
-            column = 7
-        if column == "I" or "i":
-            column = 8
-        if column == "J" or "j":
-            column = 9
+
+        # Checking for valid column input
+        validColumnInput = 0
+        while validColumnInput == 0:
+            column = str(input("Column: "))
+            if column == "A":
+                column = 0
+                validColumnInput = 1
+            elif column == "B":
+                column = 1
+                validColumnInput = 1
+            elif column == "C":
+                column = 2
+                validColumnInput = 1
+            elif column == "D":
+                column = 3
+                validColumnInput = 1
+            elif column == "E":
+                column = 4
+                validColumnInput = 1
+            elif column == "F":
+                column = 5
+                validColumnInput = 1
+            elif column == "G":
+                column = 6
+                validColumnInput = 1
+            elif column == "H":
+                column = 7
+                validColumnInput = 1
+            elif column == "I":
+                column = 8
+                validColumnInput = 1
+            elif column == "J":
+                column = 9
+                validColumnInput = 1
+            else:
+                print("Input a valid column (A-J)")
+
+        # Checking for valid row input
+        validRowInput = 0
+        while validRowInput == 0:
+            row = input("Row: ")
+            if str(row) != "0" and str(row) != "1" and str(row) != "2" and str(row) != "3" and str(row) != "4" and str(row) != "5" and str(row) != "6" and str(row) != "7" and str(row) != "8" and str(row) != "9":
+                print("Input a valid row (0-9)")
+            else:
+                row = int(row)
+                validRowInput = 1
+
+        # Hit
         if enemyBoard[row][column] == "I":
             enemyBoard[row][column] = "X"
             print("Hit!")
             firing = 0
+
+        # Miss
         elif enemyBoard[row][column] == " ":
             enemyBoard[row][column] = "+"
             print("Miss!")
             firing = 0
+
+        # Already shot here - shoot again
         else:
             print("You have already shot at these coordinates")
 

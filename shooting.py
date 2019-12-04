@@ -1,29 +1,8 @@
-# This file will create the blank matrices that will be manipulated throughout the game.
-# Details:
-# 10 x 10 playing board
-# Numbered 0-9 across top
-# Numbered A-J down side
+# File for player shooting and AI shooting. Does NOT include prompting player input and sink detection
 
-# Values
-# +     (Miss)
-#       (Empty)
-# O     (Friendly Ship)
-# X     (Hit Enemy Ship
-# V     (Sunken Enemy Ship)
-# I     (Hidden Enemy Ship)
-
-
-# How to reference the board
-# board[i][j] where i = 0 refers to column A and i = 9 refers to column J
-# board[i][j] where j = 0 refers to row 0 and j = 9 refers to row 10
-# All data is stored as strings
-
-# Board of the player
+# Temporary matrices for testing
 playerBoard = ([[' ','I',' ',' ',' ',' ',' ',' ',' ',' '],[' ','I',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
-# Board of the enemy containing all data (hidden ships, misses, hit ships, etc)
 enemyBoard = ([['I','I',' ',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ','V',' ',' ',' ','X',' '],[' ',' ','X',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ','X',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ','X',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
-
-
 def printBoard(player):
     print("---------------------------------------------")
     print("                 Your Board                  ")
@@ -49,18 +28,91 @@ def printBothBoards(player, opponent):
 
 # Function that hides all 'I', which are hidden enemy ships that the viewer shouldn't see
 def hideHidden(opponent):
-    hidden = opponent
+    hidden = []
+    for i in range(len(opponent)):
+        hidden.append(opponent[i].copy())
     for i, x in enumerate(hidden):
         for j, a in enumerate(x):
             if 'I' in a:
                 hidden[i][j] = a.replace('I', ' ')
     return hidden
 
-# For setting up ships
-printBoard(playerBoard)
+def playerShot():
 
-# What the board actually is
-printBothBoards(playerBoard, enemyBoard)
+    # Keeps firing if you target a tile you have already shot at before
+    firing = 1
+    while firing == 1:
 
-# What the board looks like for the player
-printBothBoards(playerBoard, hideHidden(enemyBoard))
+        # Checking for valid column input
+        validColumnInput = 0
+        while validColumnInput == 0:
+            column = str(input("Column: "))
+            if column == "A":
+                column = 0
+                validColumnInput = 1
+            elif column == "B":
+                column = 1
+                validColumnInput = 1
+            elif column == "C":
+                column = 2
+                validColumnInput = 1
+            elif column == "D":
+                column = 3
+                validColumnInput = 1
+            elif column == "E":
+                column = 4
+                validColumnInput = 1
+            elif column == "F":
+                column = 5
+                validColumnInput = 1
+            elif column == "G":
+                column = 6
+                validColumnInput = 1
+            elif column == "H":
+                column = 7
+                validColumnInput = 1
+            elif column == "I":
+                column = 8
+                validColumnInput = 1
+            elif column == "J":
+                column = 9
+                validColumnInput = 1
+            else:
+                print("Input a valid column (A-J)")
+
+        # Checking for valid row input
+        validRowInput = 0
+        while validRowInput == 0:
+            row = input("Row: ")
+            if str(row) != "0" and str(row) != "1" and str(row) != "2" and str(row) != "3" and str(row) != "4" and str(row) != "5" and str(row) != "6" and str(row) != "7" and str(row) != "8" and str(row) != "9":
+                print("Input a valid row (0-9)")
+            else:
+                row = int(row)
+                validRowInput = 1
+
+        # Hit
+        if enemyBoard[row][column] == "I":
+            enemyBoard[row][column] = "X"
+            print("Hit!")
+            firing = 0
+
+        # Miss
+        elif enemyBoard[row][column] == " ":
+            enemyBoard[row][column] = "+"
+            print("Miss!")
+            firing = 0
+
+        # Already shot here - shoot again
+        else:
+            print("You have already shot at these coordinates")
+
+# def enemyShot():
+#     column = 0
+
+# Need to check for sinks. Once all ships are sunk make gameActive = False
+gameActive = True
+while gameActive == True:
+    printBothBoards(playerBoard, hideHidden(enemyBoard))
+    playerShot()
+    # printBothBoards(playerBoard, hideHidden(enemyBoard))
+    # enemyShot()

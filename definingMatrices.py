@@ -56,11 +56,13 @@ def hideHidden(opponent):
                 hidden[i][j] = a.replace('I', ' ')
     return hidden
 
-# For setting up ships
-printBoard(playerBoard)
 
-# What the board actually is
-printBothBoards(playerBoard, enemyBoard)
+if __name__ == "__main__":
+    # For setting up ships
+    printBoard(playerBoard)
 
-# What the board looks like for the player
-printBothBoards(playerBoard, hideHidden(enemyBoard))
+    # What the board actually is
+    printBothBoards(playerBoard, enemyBoard)
+
+    # What the board looks like for the player
+    printBothBoards(playerBoard, hideHidden(enemyBoard))

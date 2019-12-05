@@ -38,14 +38,16 @@ def hideHidden(opponent):
                 hidden[i][j] = a.replace('I', ' ')
     return hidden
 
+
 def check_valid_coordinates(square):  # Checks if a given string input is a valid square in the form 'A1'.
-    if square[:1] in "ABCDEFGHIJ" and int(square[1:]) in range(0,10):
+    if square[:1] in "ABCDEFGHIJ" and int(square[1:]) in range(0, 10):
         # print("{}{} is a valid set of coordinates. Checking validity of placement.".format(input[:1],input[1:]))
         valid = True
     else:
         print("{}{} is not a valid set of coordinates.".format(square[:1], square[1:]))
         valid = False
     return valid
+
 
 def coordinate_converter(square):  # Takes A1 (as a string) and turns it into a tuple (0,0)
     column_dict = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9}

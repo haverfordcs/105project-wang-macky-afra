@@ -1,10 +1,11 @@
 # This file governs ship placement for both the player and the AI. It will have to be imported to the game file in
 # order for the game to be run.
 playerBoard = ([[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
-
+import definingMatrices as dM
 
 def ship_placement_player(matrix):  # This function runs through the ship-placement sequence for the player. Call it
     # when you want the player to place their ships. It takes an empty matrix and lets the player fill it with ships.
+    print(type(matrix))
     if not board_is_clear(matrix):  # if the board is empty
         print("Board is not clear!")
     else:
@@ -31,8 +32,8 @@ def ship_placement_player(matrix):  # This function runs through the ship-placem
                 # ask for coordinates of top-left point
                 if placement_is_valid(orientation, square, ship[1], matrix):
                     matrix = place_friendly_ship(orientation, square, ship[1], matrix)
-                    print("You are making a valid placement of your {} with orientation {} on square {}".format(ship[0], orientation, square))
-                    # PRINT THE BOARDS!
+                    print("You have placed your {} {}ly starting on square {}".format(ship[0], orientation.lower(), square))
+                    dM.printBoard(matrix)
                     placed = True
     return matrix
 
@@ -112,16 +113,28 @@ def coordinate_converter(square):  # Takes A1 (as a string) and turns it into a 
     column_dict = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9}
     if check_valid_coordinates(square):
         coordinates = ((column_dict[square[:1]]), (int(square[1:])-1))
-        print(coordinates)
+        # print(coordinates)
         return coordinates
+    else:
+        print("Tried to convert invalid coordinates")
 
 
 def place_friendly_ship(orientation, square, length, matrix):  # Takes all the variables listed and returns a matrix with the ship added.
-    return True
+    coords = coordinate_converter(square)
+    if orientation == "Vertical":
+        for i in range(0, length):
+            matrix[coords[0]][coords[1]] = "O"
+    elif orientation == "Horizontal":
+        for i in range(0, length):
+            matrix[coords[0]+i][coords[1]] = "O"
+    else:
+        print("Tried to place a ship with invalid orientation")
+    return matrix
 
 
 def place_ai_ship(orientation, square, length, matrix):  # Takes all the variables listed and returns a matrix with the ship added.
     return True
 
 
-ship_placement_player(playerBoard)
+if __name__ == "__main__":
+    ship_placement_player(playerBoard)

@@ -15,7 +15,7 @@
 
 # How to reference the board
 # board[i][j] where i = 0 refers to column A and i = 9 refers to column J
-# board[i][j] where j = 0 refers to row 0 and j = 9 refers to row 10
+# board[i][j] where j = 0 refers to row 1 and j = 9 refers to row 10
 # All data is stored as strings
 
 # Board of the player

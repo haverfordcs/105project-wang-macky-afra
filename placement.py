@@ -9,11 +9,9 @@ enemyBoard = ([[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' 
 def ship_placement_player(matrix):  # This function runs through the ship-placement sequence for the player. Call it
     # when you want the player to place their ships. It takes an empty matrix and lets the player fill it with ships.
     # Returns the matrix, and a dictionary of ship locations, in tuple form: (matrix, dict).
-    if not board_is_clear(matrix):  # if the board is empty
-        print("Board is not clear!")
-    else:
+    player_ship_location_dict = {}
+    if board_is_clear(matrix):
         ships_list = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3), ('Patrol Boat', 2)]
-        player_ship_location_dict = {}
         for ship in ships_list:
             placed = False
             while not placed:  # This exists so that it'll keep trying every time you give it a bad placement.
@@ -33,17 +31,17 @@ def ship_placement_player(matrix):  # This function runs through the ship-placem
                 else:
                     print("That's not a valid entry.")
         print("You have finished placing your ships!")
+    else:
+        print("Board is not clear!")
     return matrix, player_ship_location_dict
 
 
 def ship_placement_ai(matrix):  # This function runs through the ship-placement sequence for the ai. Call it
     # when you want the AI to place their ships. It takes an empty matrix and automatically fills it with ships.
     # Returns the matrix, and a dictionary of ship locations, in tuple form: (matrix, dict).
-    if not board_is_clear(matrix):  # if the board is empty
-        print("Board is not clear!")
-    else:
+    ai_ship_location_dict = {}
+    if board_is_clear(matrix):
         ships_list = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3), ('Patrol Boat', 2)]
-        ai_ship_location_dict = {}
         bad_ideas = []
         for ship in ships_list:
             placed = False
@@ -52,11 +50,11 @@ def ship_placement_ai(matrix):  # This function runs through the ship-placement 
                 # print("You are placing your {}. It is {} squares long.".format(ship[0], ship[1]))  # Tell the player which ship they're placing and how long it is
                 # print("Would you like to place your ship vertically or horizontally?")  # ask player if they want it horizontal or vertical
                 # orientation = input("Input 'Vertical' or 'Horizontal': ")
-                orientationDict = {0: "Vertical", 1: "Horizontal"}
-                orientation = orientationDict[random.randint(0, 1)].lower()
+                orientationdict = {0: "Vertical", 1: "Horizontal"}
+                orientation = orientationdict[random.randint(0, 1)].lower()
                 # square = input("Enter the coordinates of the top-left square you want your ship to occupy in the form 'A1': ")  # ask player if they want it horizontal or vertical
-                columnDict = {0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H", 8: "I", 9: "J"}
-                square = ""+str(columnDict[random.randint(0, 9)])+str(random.randint(0, 9))
+                columndict = {0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H", 8: "I", 9: "J"}
+                square = ""+str(columndict[random.randint(0, 9)])+str(random.randint(0, 9))
                 if placement_is_valid(orientation, square, ship[1], matrix, "AI"):
                     good_idea = False
                     if orientation == "vertical" and (orientation, coordinate_converter(square)[1]) not in bad_ideas:
@@ -80,6 +78,8 @@ def ship_placement_ai(matrix):  # This function runs through the ship-placement 
         #         else:
         #             print("That's not a valid entry.")
         # print("You have finished placing your ships!")
+    else:
+        print("Board is not clear!")
     return matrix, ai_ship_location_dict
 
 

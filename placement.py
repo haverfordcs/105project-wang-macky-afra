@@ -79,7 +79,7 @@ def ship_placement_ai(matrix):  # This function runs through the ship-placement 
         #         else:
         #             print("That's not a valid entry.")
         # print("You have finished placing your ships!")
-    return matrix, ai_ship_location_dict, bad_ideas
+    return matrix, ai_ship_location_dict
 
 
 def board_is_clear(matrix):
@@ -208,7 +208,8 @@ def place_enemy_ship(orientation, square, length, matrix, ship_name, ai_ship_loc
 
 
 if __name__ == "__main__":
-    matrix, ai_dict, bad_ideas = ship_placement_ai(playerBoard)
+    matrix, ai_dict= ship_placement_ai(playerBoard)
+    bad_ideas = "bad_ideas removed. Edit ship_placement_ai."
     dM.printBoard(matrix)
     print(ai_dict)
     print(bad_ideas)

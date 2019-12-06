@@ -1,8 +1,8 @@
 # This file will create the blank matrices that will be manipulated throughout the game.
 # Details:
 # 10 x 10 playing board
-# Numbered 0-9 across top
-# Numbered A-J down side
+# Numbered 0-9 down side
+# Numbered A-J across top
 
 # Values
 # +     (Miss)
@@ -14,8 +14,8 @@
 
 
 # How to reference the board
-# board[i][j] where i = 0 refers to column A and i = 9 refers to column J
-# board[i][j] where j = 0 refers to row 1 and j = 9 refers to row 10
+# board[i][j] where j = 0 refers to column A and j = 9 refers to column J
+# board[i][j] where i = 0 refers to row 0 and i = 9 refers to row 9
 # All data is stored as strings
 
 # Board of the player

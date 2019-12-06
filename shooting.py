@@ -38,28 +38,25 @@ def hideHidden(opponent):
                 hidden[i][j] = a.replace('I', ' ')
     return hidden
 
+
 def check_valid_coordinates(square):  # Checks if a given string input is a valid square in the form 'A1'.
-    if len(square) == 2:
-        if square[:1] in "ABCDEFGHIJabcdefghij" and int(square[1:]) in range(0,10):
-            # print("{}{} is a valid set of coordinates. Checking validity of placement.".format(input[:1],input[1:]))
-            valid = True
-        else:
-            print("Not a valid set of coordinates. (Sample input -> G5)".format(square[:1], square[1:]))
-            valid = False
-        return valid
+    if square[:1] in "ABCDEFGHIJ" and int(square[1:]) in range(0, 10):
+        # print("{}{} is a valid set of coordinates. Checking validity of placement.".format(input[:1],input[1:]))
+        valid = True
     else:
+        print("{}{} is not a valid set of coordinates.".format(square[:1], square[1:]))
         valid = False
-        print("Not a valid set of coordinates. (Sample input -> G5)")
-        return valid
+    return valid
+
 
 def coordinate_converter(square):  # Takes A1 (as a string) and turns it into a tuple (0,0)
-    column_dict = {'A': 0, 'a': 0, 'B': 1, 'b': 1, 'C': 2, 'c': 2, 'D': 3, 'd': 3, 'E': 4, 'e': 4, 'F': 5, 'f': 5, 'G': 6, 'g': 6, 'H': 7, 'h': 7, 'I': 8, 'i': 8, 'J': 9, 'j': 9}
+    column_dict = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9}
     if check_valid_coordinates(square):
         coordinates = ((column_dict[square[:1]]), (int(square[1:])))
         # print(coordinates)
         return coordinates
     else:
-        print("Tried to convert invalid coordinates.")
+        print("Tried to convert invalid coordinates")
 
 def playerShot():
 

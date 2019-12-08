@@ -37,6 +37,7 @@ def Start():
 
 #Whoever wins starts the game
 def RockPaperScissors():
+        print("Play rock, paper, scissors to decide who shoots first!")
 
         AI = random.randint(1,3)
         AI_choice = AI
@@ -48,35 +49,43 @@ def RockPaperScissors():
             AI_choice = "Scissors"
 
 
-
+        #True = player wins
+        #False = AI wins
         player = False
         while player == False:
             player = input("Rock, Paper, or Scissors?")
             if player == AI_choice:
                 print("Tie!")
-                break
+
             elif player == "Rock":
                 if AI_choice == "Paper":
                     print("You lose!", AI_choice, "covers", player)
+                    return False
                 else:
                     print("You win!", player, "smashes", AI_choice)
-                break
+                    return True
+
             elif player == "Paper":
                 if AI_choice == "Scissors":
                     print("You lose!", AI_choice, "cuts", player)
+                    return False
                 else:
                     print("You win!", player, "covers", AI_choice)
-                break
+                    return True
+
             elif player == "Scissors":
                 if AI_choice == "Rock":
                     print("You lose...", AI_choice, "smashes", player)
+                    return False
                 else:
                     print("You win!", player, "cuts", AI_choice)
-                break
+                    return True
+
             else:
                 print("That's not a valid play. Check your spelling!")
 
             player = False
 
 
-Start()
+#Start()
+#RockPaperScissors()

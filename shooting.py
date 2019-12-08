@@ -1,7 +1,7 @@
 # File for player shooting and AI shooting. Does NOT include prompting player input and sink detection
 import random
 # Temporary matrices for testing
-playerBoard = ([['O','O','O','O','O',' ',' ',' ',' ',' '],[' ','I',' ',' ','O',' ',' ',' ',' ',' '],[' ',' ',' ',' ','O',' ',' ',' ',' ',' '],[' ',' ',' ',' ','O',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
+playerBoard = ([['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' ']])
 enemyBoard = ([['I','I',' ',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ','V',' ',' ',' ','X',' '],[' ',' ','X',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ','X',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ','X',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
 def printBoard(player):
     print("---------------------------------------------")
@@ -79,111 +79,221 @@ def playerShot():
             row = coordinate_converter(target)[1]
             column = coordinate_converter(target)[0]
 
-            # OLD CODE
-            # # Checking for valid column input
-            # validColumnInput = 0
-            # while validColumnInput == 0:
-            #     column = str(input("Column: "))
-            #     if column == "A":
-            #         column = 0
-            #         validColumnInput = 1
-            #     elif column == "B":
-            #         column = 1
-            #         validColumnInput = 1
-            #     elif column == "C":
-            #         column = 2
-            #         validColumnInput = 1
-            #     elif column == "D":
-            #         column = 3
-            #         validColumnInput = 1
-            #     elif column == "E":
-            #         column = 4
-            #         validColumnInput = 1
-            #     elif column == "F":
-            #         column = 5
-            #         validColumnInput = 1
-            #     elif column == "G":
-            #         column = 6
-            #         validColumnInput = 1
-            #     elif column == "H":
-            #         column = 7
-            #         validColumnInput = 1
-            #     elif column == "I":
-            #         column = 8
-            #         validColumnInput = 1
-            #     elif column == "J":
-            #         column = 9
-            #         validColumnInput = 1
-            #     else:
-            #         print("Input a valid column (A-J)")
-            #
-            # # Checking for valid row input
-            # validRowInput = 0
-            # while validRowInput == 0:
-            #     row = input("Row: ")
-            #     if str(row) != "0" and str(row) != "1" and str(row) != "2" and str(row) != "3" and str(row) != "4" and str(row) != "5" and str(row) != "6" and str(row) != "7" and str(row) != "8" and str(row) != "9":
-            #         print("Input a valid row (0-9)")
-            #     else:
-            #         row = int(row)
-            #         validRowInput = 1
-
-
             # Hit
             if enemyBoard[row][column] == "I":
                 enemyBoard[row][column] = "X"
                 printBothBoards(playerBoard, hideHidden(enemyBoard))
-                print("Hit!")
+                print("You hit an enemy ship!")
                 firing = 0
 
             # Miss
             elif enemyBoard[row][column] == " ":
                 enemyBoard[row][column] = "+"
                 printBothBoards(playerBoard, hideHidden(enemyBoard))
-                print("Miss!")
+                print("You missed!")
                 firing = 0
 
             # Already shot here - shoot again
             else:
-                print("You have already shot at these coordinates")
+                print("You have already shot at these coordinates. Try again.")
     x = input("Press enter to continue")
-enemyShotTracker = []
-enemyShotPrevious = ()
-def enemyShot(enemyShotTracker, enemyShotPrevious):
+
+
+enemyShotHitTrackerPerShip = []
+enemyShotPreviousHit = ()
+enemyShotTargetAcquired = False
+enemyShotDirection = random.randint(1,4)
+#       1
+#     4 + 2
+#       3
+
+def enemyShot():
+    global enemyShotTargetAcquired
+    global enemyShotDirection
+    global enemyShotHitTrackerPerShip
+    global enemyShotPreviousHit
     firing = 1
     while firing == 1:
-        row = random.randint(0,9)
-        column = random.randint(0,9)
+        # If a ship is currently targeted
+        if enemyShotTargetAcquired == True:
+            print("TARGET ACQUIRED")
+            # Check if targeted ship is sunk
+            if playerBoard[enemyShotPreviousHit[0]][enemyShotPreviousHit[1]] == "V":
+                # Ship destroyed. No longer have target
+                # Clears ship hit tracker
+                enemyShotHitTrackerPerShip = []
+                enemyShotTargetAcquired = False
+                # Continuing Loop
+                firing = 1
 
-        # Hit
-        if playerBoard[row][column] == "O":
-            playerBoard[row][column] = "X"
-            printBothBoards(playerBoard, hideHidden(enemyBoard))
-            print("Enemy hit!")
-            enemyShotTracker.append((row,column))
-            enemyShotPrevious = (row,column)
-            print(enemyShotTracker)
-            # Ending Loop
-            firing = 0
+            # Check if targeted ship is not sunk
+            if playerBoard[enemyShotPreviousHit[0]][enemyShotPreviousHit[1]] == "X":
+                print("PREVIOUS SHOT WAS HIT")
+                validDirection = False
+                # Correcting direction of aim if aiming at border
+                while validDirection == False:
+                    # If aiming down at bottom border
+                    if enemyShotDirection == 3 and enemyShotPreviousHit[1] == 9:
+                        enemyShotDirection = 1
+                        validDirection = True
+                    # If aiming up at top border
+                    if enemyShotDirection == 1 and enemyShotPreviousHit[1] == 0:
+                        enemyShotDirection = 3
+                        validDirection = True
+                    # If aiming right at right border
+                    if enemyShotDirection == 2 and enemyShotPreviousHit[0] == 9:
+                        enemyShotDirection = 4
+                        validDirection = True
+                    # If aiming left at left border
+                    if enemyShotDirection == 4 and enemyShotPreviousHit[0] == 0:
+                        enemyShotDirection = 2
+                        validDirection = True
+                    else:
+                    # Aimed direction is valid
+                        validDirection = True
+                print("DIRECTION IS VALID")
+                # Shoots in direction
+                # Shoot up
+                if enemyShotDirection == 1:
+                    row = enemyShotPreviousHit[0] - 1
+                    column = enemyShotPreviousHit[1]
+                # Shoot down
+                if enemyShotDirection == 3:
+                    row = enemyShotPreviousHit[0] + 1
+                    column = enemyShotPreviousHit[1]
+                # Shoot right
+                if enemyShotDirection == 2:
+                    row = enemyShotPreviousHit[0]
+                    column = enemyShotPreviousHit[1] + 1
+                # Shoot left
+                if enemyShotDirection == 4:
+                    row = enemyShotPreviousHit[0]
+                    column = enemyShotPreviousHit[1] - 1
 
-        # Miss
-        elif playerBoard[row][column] == " ":
-            playerBoard[row][column] = "+"
-            printBothBoards(playerBoard, hideHidden(enemyBoard))
-            print("Enemy miss!")
+                # Hit
+                if playerBoard[row][column] == "O":
+                    playerBoard[row][column] = "X"
+                    printBothBoards(playerBoard, hideHidden(enemyBoard))
+                    print("VALID TARGET FOUND")
+                    print("Enemy hit!")
 
-            # Ending Loop
-            firing = 0
+                    enemyShotHitTrackerPerShip.append((row, column))
+                    enemyShotPreviousHit = (row, column)
+                    enemyShotTargetAcquired = True
+                    # Ending Loop
+                    firing = 0
 
-        # Already shot here - shoot again
-        else:
-            # Continuing Loop
-            firing = 1
-    x = input("Press enter to continue")
+                # Miss
+                elif playerBoard[row][column] == " ":
+                    playerBoard[row][column] = "+"
+                    printBothBoards(playerBoard, hideHidden(enemyBoard))
+                    print("Enemy miss!")
+                    # If only one spot in ship has been hit so far
+                    if len(enemyShotHitTrackerPerShip) == 1:
+                        print(enemyShotDirection)
+                        enemyShotDirection = random.randint(1,4)
+                        print("ONLY ONE SPOT. DIRECTION RANDOMIZED")
+                        print(enemyShotDirection)
+                    # If multiple spots in ship have been hit so far
+                    else:
+                        print("MULTIPLE SPOTS. DIRECTION SWAPPED")
+                        print(enemyShotDirection)
+                        # Same column
+                        if enemyShotHitTrackerPerShip[0][1] == enemyShotHitTrackerPerShip[1][1]:
+                            # Flip up to down
+                            if enemyShotDirection == 1:
+                                enemyShotDirection = 3
+                            # Flip down to up
+                            if enemyShotDirection == 3:
+                                enemyShotDirection = 1
+                        # Same row
+                        if enemyShotHitTrackerPerShip[0][0] == enemyShotHitTrackerPerShip[1][0]:
+                            # Flip left to right
+                            if enemyShotDirection == 4:
+                                enemyShotDirection = 2
+                            # Flip right to left
+                            if enemyShotDirection == 2:
+                                enemyShotDirection = 4
+                        print(enemyShotDirection)
+                        print(enemyShotPreviousHit)
+                        enemyShotPreviousHit = enemyShotHitTrackerPerShip[0]
+                        print(enemyShotPreviousHit)
+                    # Ending Loop
+                    firing = 0
+
+                # Already shot here - shoot again
+                else:
+                    print(enemyShotDirection)
+                    print("ENEMY SHOT HERE ALREADY. CHANGING DIRECTION")
+                    # If only one spot in ship has been hit so far
+                    if len(enemyShotHitTrackerPerShip) == 1:
+                        print(enemyShotDirection)
+                        enemyShotDirection = random.randint(1, 4)
+                        print("ONLY ONE SPOT. DIRECTION RANDOMIZED")
+                        print(enemyShotDirection)
+                    # If multiple spots in ship have been hit so far
+                    else:
+                        print("MULTIPLE SPOTS. DIRECTION SWAPPED")
+                        print(enemyShotDirection)
+                        # Same column
+                        if enemyShotHitTrackerPerShip[0][1] == enemyShotHitTrackerPerShip[1][1]:
+                            # Flip up to down
+                            if enemyShotDirection == 1:
+                                enemyShotDirection = 3
+                            # Flip down to up
+                            if enemyShotDirection == 3:
+                                enemyShotDirection = 1
+                        # Same row
+                        if enemyShotHitTrackerPerShip[0][0] == enemyShotHitTrackerPerShip[1][0]:
+                            # Flip left to right
+                            if enemyShotDirection == 4:
+                                enemyShotDirection = 2
+                            # Flip right to left
+                            if enemyShotDirection == 2:
+                                enemyShotDirection = 4
+                        print(enemyShotDirection)
+
+                        # Continuing Loop
+                        firing = 1
+        # If no ship is currently targeted
+        if enemyShotTargetAcquired == False:
+            row = random.randint(0, 9)
+            column = random.randint(0, 9)
+
+            # Hit
+            if playerBoard[row][column] == "O":
+                playerBoard[row][column] = "X"
+                printBothBoards(playerBoard, hideHidden(enemyBoard))
+                print("Enemy hit!")
+
+                enemyShotHitTrackerPerShip.append((row, column))
+                enemyShotPreviousHit = (row, column)
+                enemyShotTargetAcquired = True
+                # Ending Loop
+                firing = 0
+                break
+
+            # Miss
+            elif playerBoard[row][column] == " ":
+                playerBoard[row][column] = "+"
+                printBothBoards(playerBoard, hideHidden(enemyBoard))
+                print("Enemy miss!")
+                # Ending Loop
+                firing = 0
+
+            # Already shot here - shoot again
+            else:
+                # Continuing Loop
+                firing = 1
+
 # Need to check for sinks. Once all ships are sunk make gameActive = False
+
+# PLACE SHIPS HERE
+
 gameActive = True
 printBothBoards(playerBoard, hideHidden(enemyBoard))
 while gameActive == True:
     playerShot()
-    printBothBoards(playerBoard, hideHidden(enemyBoard))
-    enemyShot(enemyShotTracker,enemyShotPrevious)
-    printBothBoards(playerBoard, hideHidden(enemyBoard))
+    # INSERT check_sink HERE
+    enemyShot()
+    # INSERT check_sink HERE

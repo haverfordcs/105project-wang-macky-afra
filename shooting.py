@@ -1,7 +1,7 @@
 # File for player shooting and AI shooting. Does NOT include prompting player input and sink detection
-
+import random
 # Temporary matrices for testing
-playerBoard = ([[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ','I',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
+playerBoard = ([['O','O','O','O','O',' ',' ',' ',' ',' '],[' ','I',' ',' ','O',' ',' ',' ',' ',' '],[' ',' ',' ',' ','O',' ',' ',' ',' ',' '],[' ',' ',' ',' ','O',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
 enemyBoard = ([['I','I',' ',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ','V',' ',' ',' ','X',' '],[' ',' ','X',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ','X',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ','X',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
 def printBoard(player):
     print("---------------------------------------------")
@@ -40,17 +40,28 @@ def hideHidden(opponent):
 
 
 def check_valid_coordinates(square):  # Checks if a given string input is a valid square in the form 'A1'.
-    if square[:1] in "ABCDEFGHIJ" and int(square[1:]) in range(0, 10):
-        # print("{}{} is a valid set of coordinates. Checking validity of placement.".format(input[:1],input[1:]))
-        valid = True
+    if len(square) == 2:
+        row = square[1:]
+        if row == "0" or row == "1" or row == "2" or row == "3" or row == "4" or row == "5" or row == "6" or row == "7" or row == "8" or row == "9":
+            if square[:1] in "ABCDEFGHIJabcdefghij" and int(square[1:]) in range(0, 10):
+                # print("{}{} is a valid set of coordinates. Checking validity of placement.".format(input[:1],input[1:]))
+                valid = True
+            else:
+                print("{}{} is not a valid set of coordinates.".format(square[:1], square[1:]))
+                valid = False
+            return valid
+        else:
+            valid = False
+            print("{}{} is not a valid set of coordinates.")
+            return valid
     else:
-        print("{}{} is not a valid set of coordinates.".format(square[:1], square[1:]))
         valid = False
-    return valid
+        print("{}{} is not a valid set of coordinates.")
+        return valid
 
 
 def coordinate_converter(square):  # Takes A1 (as a string) and turns it into a tuple (0,0)
-    column_dict = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9}
+    column_dict = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9, 'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7, 'i': 8, 'j': 9}
     if check_valid_coordinates(square):
         coordinates = ((column_dict[square[:1]]), (int(square[1:])))
         # print(coordinates)
@@ -120,26 +131,59 @@ def playerShot():
             # Hit
             if enemyBoard[row][column] == "I":
                 enemyBoard[row][column] = "X"
+                printBothBoards(playerBoard, hideHidden(enemyBoard))
                 print("Hit!")
                 firing = 0
 
             # Miss
             elif enemyBoard[row][column] == " ":
                 enemyBoard[row][column] = "+"
+                printBothBoards(playerBoard, hideHidden(enemyBoard))
                 print("Miss!")
                 firing = 0
 
             # Already shot here - shoot again
             else:
                 print("You have already shot at these coordinates")
+    x = input("Press enter to continue")
+enemyShotTracker = []
+enemyShotPrevious = ()
+def enemyShot(enemyShotTracker, enemyShotPrevious):
+    firing = 1
+    while firing == 1:
+        row = random.randint(0,9)
+        column = random.randint(0,9)
 
-# def enemyShot():
-#     column = 0
+        # Hit
+        if playerBoard[row][column] == "O":
+            playerBoard[row][column] = "X"
+            printBothBoards(playerBoard, hideHidden(enemyBoard))
+            print("Enemy hit!")
+            enemyShotTracker.append((row,column))
+            enemyShotPrevious = (row,column)
+            print(enemyShotTracker)
+            # Ending Loop
+            firing = 0
 
+        # Miss
+        elif playerBoard[row][column] == " ":
+            playerBoard[row][column] = "+"
+            printBothBoards(playerBoard, hideHidden(enemyBoard))
+            print("Enemy miss!")
+
+            # Ending Loop
+            firing = 0
+
+        # Already shot here - shoot again
+        else:
+            # Continuing Loop
+            firing = 1
+    x = input("Press enter to continue")
 # Need to check for sinks. Once all ships are sunk make gameActive = False
 gameActive = True
+printBothBoards(playerBoard, hideHidden(enemyBoard))
 while gameActive == True:
-    printBothBoards(playerBoard, hideHidden(enemyBoard))
     playerShot()
-    # printBothBoards(playerBoard, hideHidden(enemyBoard))
-    # enemyShot()
+    printBothBoards(playerBoard, hideHidden(enemyBoard))
+    enemyShot(enemyShotTracker,enemyShotPrevious)
+    printBothBoards(playerBoard, hideHidden(enemyBoard))

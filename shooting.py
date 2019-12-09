@@ -221,7 +221,6 @@ def enemyShot(playerBoard, enemyBoard, loopCount):
                     # If only one spot in ship has been hit so far
                     if enemyShotTargetAcquired and len(enemyShotHitTrackerPerShip) == 1:
                         enemyShotDirection = random.randint(1, 4)
-                        print(enemyShotDirection)
                     # If multiple spots in ship have been hit so far
                     elif enemyShotTargetAcquired and len(enemyShotHitTrackerPerShip) > 1:
                         # Same column
@@ -240,6 +239,7 @@ def enemyShot(playerBoard, enemyBoard, loopCount):
                             # Flip right to left
                             if enemyShotDirection == 2:
                                 enemyShotDirection = 4
+                        enemyShotPreviousHit = enemyShotHitTrackerPerShip[0]
                     else:
                         firing = 0
                         # break

@@ -1,8 +1,8 @@
 # File for player shooting and AI shooting. Does NOT include prompting player input and sink detection
 import random
 # Temporary matrices for testing
-playerBoard = ([['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' ']])
-enemyBoard = ([['I','I',' ',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ','V',' ',' ',' ','X',' '],[' ',' ','X',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ','X',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ','X',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
+# playerBoard = ([['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' ']])
+# enemyBoard = ([['I','I',' ',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ','V',' ',' ',' ','X',' '],[' ',' ','X',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ','X',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ','X',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
 def printBoard(player):
     print("---------------------------------------------")
     print("                 Your Board                  ")
@@ -69,8 +69,7 @@ def coordinate_converter(square):  # Takes A1 (as a string) and turns it into a 
     else:
         print("Tried to convert invalid coordinates")
 
-def playerShot():
-
+def playerShot(playerBoard, enemyBoard):
     # Keeps firing if you target a tile you have already shot at before
     firing = 1
     while firing == 1:
@@ -107,7 +106,7 @@ enemyShotDirection = random.randint(1,4)
 #     4 + 2
 #       3
 
-def enemyShot():
+def enemyShot(playerBoard, enemyBoard):
     global enemyShotTargetAcquired
     global enemyShotDirection
     global enemyShotHitTrackerPerShip
@@ -289,11 +288,11 @@ def enemyShot():
 # Need to check for sinks. Once all ships are sunk make gameActive = False
 
 # PLACE SHIPS HERE
-
-gameActive = True
-printBothBoards(playerBoard, hideHidden(enemyBoard))
-while gameActive == True:
-    playerShot()
-    # INSERT check_sink HERE
-    enemyShot()
-    # INSERT check_sink HERE
+#
+# gameActive = True
+# printBothBoards(playerBoard, hideHidden(enemyBoard))
+# while gameActive == True:
+#     playerShot()
+#     # INSERT check_sink HERE
+#     enemyShot()
+#     # INSERT check_sink HERE

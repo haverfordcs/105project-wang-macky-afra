@@ -15,10 +15,10 @@ def ship_placement_player(matrix):  # This function runs through the ship-placem
         return ship_placement_lazy(matrix)
     if board_is_clear(matrix):
         ships_list = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3), ('Patrol Boat', 2)]
+        dM.printBoard(matrix)
         for ship in ships_list:
             placed = False
             while not placed:  # This exists so that it'll keep trying every time you give it a bad placement.
-                dM.printBoard(matrix)
                 print("You are placing your {}. It is {} squares long.".format(ship[0], ship[1]))  # Tell the player which ship they're placing and how long it is
                 print("Would you like to place your ship vertically or horizontally?")  # ask player if they want it horizontal or vertical
                 orientation = input("Input 'Vertical' or 'Horizontal': ").lower()
@@ -27,12 +27,14 @@ def ship_placement_player(matrix):  # This function runs through the ship-placem
                     if check_valid_coordinates(square):
                         if placement_is_valid(orientation, square, ship[1], matrix, "Player"):
                             matrix, player_ship_location_dict = place_friendly_ship(orientation, square, ship[1], matrix, ship[0], player_ship_location_dict)
+                            dM.printBoard(matrix)
                             print("You have placed your {} {}ly starting on square {}".format(ship[0], orientation, square))
                             placed = True
                     else:
-                        print("That's not a valid entry.")
+                        print("That's not a valid entry. Try again!")
                 else:
-                    print("That's not a valid entry.")
+                    print("That's not a valid entry. Try again!")
+        dM.printBoard(matrix)
         print("You have finished placing your ships!")
     else:
         print("Board is not clear!")
@@ -171,7 +173,7 @@ def boundary_valid(orientation, square, length, identity):  # Function that chec
                 print("Ship goes beyond right side of matrix. Placement is invalid.")
             return False
     else:
-        print("How in the fuck did you get here with an invalid orientation")
+        print("Invalid orientation detected in boundary_valid")
         return False
 
 
@@ -195,16 +197,16 @@ def overlap_valid(orientation, square, length, matrix, identity):  # Function th
         # print("No overlaps detected")
         return True
     else:
-        print("How in the fuck did you get here with an invalid orientation")
+        print("Invalid orientation found in overlap_valid")
         return False
 
 
 def check_valid_coordinates(square):  # Checks if a given string input is a valid square in the form 'A0'.
-    if square[:1].upper() in "ABCDEFGHIJ" and int(square[1:]) in range(0, 10):
+    if square[:1].upper() in "ABCDEFGHIJ" and square[1:] in "0123456789":
         # print("{}{} is a valid set of coordinates. Checking validity of placement.".format(input[:1],input[1:]))
         return True
     else:
-        print("{}{} is not a valid set of coordinates.".format(square[:1], square[1:]))
+        # print("{}{} is not a valid set of coordinates.".format(square[:1], square[1:]))
         return False
 
 

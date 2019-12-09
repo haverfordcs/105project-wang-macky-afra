@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23e474ed-0530-4924-87c1-5dae3aae4544" name="Default Changelist" comment="commit" />
+    <list default="true" id="14107802-395f-4f6f-ac75-515e8a707c3b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start_game.py" beforeDir="false" afterPath="$PROJECT_DIR$/start_game.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +81,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="placement" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="105project-wang-macky-afra" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/placement.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="shooting" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="105project-wang-macky-afra" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -123,6 +148,7 @@
       <list>
         <item itemvalue="Python.main" />
         <item itemvalue="Python.start_game" />
+        <item itemvalue="Python.placement" />
         <item itemvalue="Python.CheckWin" />
         <item itemvalue="Python.shooting" />
       </list>
@@ -174,7 +200,42 @@
       <option name="project" value="LOCAL" />
       <updated>1575864542094</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="print sunk statements">
+      <created>1575865202681</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1575865202681</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Improved ship placement AI">
+      <created>1575868976955</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1575868976955</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fixed typo in start_game">
+      <created>1575869055455</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1575869055455</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fixed bug where automatically placing ships would cause instant loss">
+      <created>1575869171468</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1575869171468</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Touched up rock-paper-scissors">
+      <created>1575869598273</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1575869598273</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -193,6 +254,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Made some changes to start_game, finished sink and win, started coding main" />
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="print sunk statements" />
+    <MESSAGE value="Improved ship placement AI" />
+    <MESSAGE value="Fixed typo in start_game" />
+    <MESSAGE value="Fixed bug where automatically placing ships would cause instant loss" />
+    <MESSAGE value="Touched up rock-paper-scissors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Touched up rock-paper-scissors" />
   </component>
 </project>

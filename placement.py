@@ -98,7 +98,7 @@ def ship_placement_lazy(matrix):
                         #     # print("Had a good idea.")
                         # else:
                         #     # print("Had a bad idea. Doing it anyway!")
-                        matrix, player_ship_location_dict = place_enemy_ship(orientation, square, ship[1], matrix, ship[0], player_ship_location_dict)
+                        matrix, player_ship_location_dict = place_lazy_ship(orientation, square, ship[1], matrix, ship[0], player_ship_location_dict)
                         bad_ideas = add_bad_ideas(orientation, square, ship[1], bad_ideas)
                         placed = True
                     # else:

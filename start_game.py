@@ -2,6 +2,8 @@ import random
 
 #Go over rules
 #Decide who starts through a game of rock, paper, scissor
+ # add letters
+ # lowercase RPS , add space after input
 
 
 def Start():
@@ -24,9 +26,10 @@ def Start():
             The five ships are:
             Aircraft Carrier (5 spaces), Battleship (4 spaces), Destroyer (3 spaces), Submarine (3 spaces), Patrol Boat (2 spaces)
             Players take turn guessing their opponent's ship placements by calling out coordinates
-            The opponent's board will return with values to indicate "hit" or "miss"
-            When all of the coordinates that a ship occupies have been hit, the ship will be sunk
+            The boards will display a hit, a miss, or a sunken ship
             As soon as all of one player's ships have been sunk, the game ends!
+            
+            Legend: (+) = Miss | (X) = Hit | (O) = Friendly Ship | (V) = Sunken Ship
             
             Start by placing your ships on your board -
             ''')
@@ -39,46 +42,50 @@ def Start():
 def RockPaperScissors():
         print("Play rock, paper, scissors to decide who shoots first!")
 
-        AI = random.randint(1,3)
-        AI_choice = AI
-        if AI == 1:
-            AI_choice = "Rock"
-        elif AI == 2:
-            AI_choice = "Paper"
-        elif AI == 3:
-            AI_choice = "Scissors"
-
-
         #True = player wins
         #False = AI wins
         player = False
         while player == False:
-            player = input("Rock, Paper, or Scissors?")
+            AI = random.randint(1, 3)
+            AI_choice = AI
+            if AI == 1:
+                AI_choice = "rock"
+            elif AI == 2:
+                AI_choice = "paper"
+            elif AI == 3:
+                AI_choice = "scissors"
+            player = input("Rock, Paper, or Scissors? ").lower()
             if player == AI_choice:
                 print("Tie!")
 
-            elif player == "Rock":
-                if AI_choice == "Paper":
-                    print("You lose!", AI_choice, "covers", player)
+            elif player == "rock":
+                if AI_choice == "paper":
+                    print("AI chose:", AI_choice, ".", AI_choice, "covers", player)
+                    print("You lose! AI shoots first")
                     return False
                 else:
-                    print("You win!", player, "smashes", AI_choice)
+                    print("AI chose:", AI_choice,".", player, "smashes", AI_choice)
+                    print("You win! You shoot first")
                     return True
 
-            elif player == "Paper":
-                if AI_choice == "Scissors":
-                    print("You lose!", AI_choice, "cuts", player)
+            elif player == "paper":
+                if AI_choice == "scissors":
+                    print("AI chose:", AI_choice, ".", AI_choice, "cuts", player)
+                    print("You lose! AI shoots first")
                     return False
                 else:
-                    print("You win!", player, "covers", AI_choice)
+                    print("AI chose:", AI_choice,".", player, "covers", AI_choice)
+                    print("You win! You shoot first")
                     return True
 
-            elif player == "Scissors":
-                if AI_choice == "Rock":
-                    print("You lose...", AI_choice, "smashes", player)
+            elif player == "scissors":
+                if AI_choice == "rock":
+                    print("AI chose:", AI_choice, ".", AI_choice, "covers", player)
+                    print("You lose! AI shoots first")
                     return False
                 else:
-                    print("You win!", player, "cuts", AI_choice)
+                    print("AI chose:", AI_choice,".", player, "cuts", AI_choice)
+                    print("You win! You shoot first")
                     return True
 
             else:

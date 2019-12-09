@@ -73,7 +73,7 @@ def playerShot(playerBoard, enemyBoard):
     # Keeps firing if you target a tile you have already shot at before
     firing = 1
     while firing == 1:
-        target = input("Coordinates: ")
+        target = input("Where would you like to shoot? Enter the coordinates in the form 'A0': ")
         if check_valid_coordinates(target) == True:
             row = coordinate_converter(target)[1]
             column = coordinate_converter(target)[0]
@@ -105,8 +105,10 @@ enemyShotDirection = random.randint(1,4)
 #       1
 #     4 + 2
 #       3
-
-def enemyShot(playerBoard, enemyBoard):
+validDirection = False
+loopCount = 0
+def enemyShot(playerBoard, enemyBoard, loopCount):
+    global validDirection
     global enemyShotTargetAcquired
     global enemyShotDirection
     global enemyShotHitTrackerPerShip
@@ -222,16 +224,23 @@ def enemyShot(playerBoard, enemyBoard):
 
                 # Already shot here - shoot again
                 else:
+
                     print(enemyShotDirection)
                     print("ENEMY SHOT HERE ALREADY. CHANGING DIRECTION")
+                    loopCount += 1
+                    if loopCount > 3:
+                        loopCount = 0
+                        enemyShotHitTrackerPerShip = []
+                        enemyShotTargetAcquired = False
+                        # break
                     # If only one spot in ship has been hit so far
-                    if len(enemyShotHitTrackerPerShip) == 1:
+                    if enemyShotTargetAcquired and len(enemyShotHitTrackerPerShip) == 1:
                         print(enemyShotDirection)
                         enemyShotDirection = random.randint(1, 4)
                         print("ONLY ONE SPOT. DIRECTION RANDOMIZED")
                         print(enemyShotDirection)
                     # If multiple spots in ship have been hit so far
-                    else:
+                    elif enemyShotTargetAcquired and len(enemyShotHitTrackerPerShip) > 1:
                         print("MULTIPLE SPOTS. DIRECTION SWAPPED")
                         print(enemyShotDirection)
                         # Same column
@@ -251,9 +260,11 @@ def enemyShot(playerBoard, enemyBoard):
                             if enemyShotDirection == 2:
                                 enemyShotDirection = 4
                         print(enemyShotDirection)
-
-                        # Continuing Loop
-                        firing = 1
+                    else:
+                        firing = 0
+                        # break
+                    # Continuing Loop
+                    firing = 1
         # If no ship is currently targeted
         if enemyShotTargetAcquired == False:
             row = random.randint(0, 9)

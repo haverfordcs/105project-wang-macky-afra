@@ -30,7 +30,7 @@ def Battleship():
     if playerFirst == True:
         playerShot(playerBoard, enemyBoard)
     while check_win(playerBoard, "Player") == False and check_win(enemyBoard, "AI") == False:
-        enemyShot(playerBoard, enemyBoard)
+        enemyShot(playerBoard, enemyBoard, loopCount)
         for ship in player_ship_location_dict:
             if check_sink(ship, player_ship_location_dict, playerBoard) == True:
                 cells = player_ship_location_dict[ship]
@@ -42,4 +42,8 @@ def Battleship():
                 cells = ai_ship_location_dict[ship]
                 for cell in cells:
                     enemyBoard[cell[0]][cell[1]] = 'V'
+    if check_win(playerBoard, "Player"):
+        print("Congratulations! You have won at Battleships!")
+    else:
+        print("You have lost! Better luck next time!")
 Battleship()

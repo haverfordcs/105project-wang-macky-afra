@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23e474ed-0530-4924-87c1-5dae3aae4544" name="Default Changelist" comment="commit" />
+    <list default="true" id="23e474ed-0530-4924-87c1-5dae3aae4544" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +37,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.start_game">
+  <component name="RunManager" selected="Python.main">
     <configuration name="CheckWin" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="105project-wang-macky-afra" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -121,9 +124,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.start_game" />
         <item itemvalue="Python.CheckWin" />
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.shooting" />
       </list>
     </recent_temporary>
@@ -153,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575862282768</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="commit">
+      <created>1575862549808</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1575862549808</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

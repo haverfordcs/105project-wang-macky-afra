@@ -134,19 +134,19 @@ def enemyShot(playerBoard, enemyBoard, loopCount):
                 # Correcting direction of aim if aiming at border
                 while validDirection == False:
                     # If aiming down at bottom border
-                    if enemyShotDirection == 3 and enemyShotPreviousHit[1] == 9:
+                    if enemyShotDirection == 3 and enemyShotPreviousHit[0] == 9:
                         enemyShotDirection = 1
                         validDirection = True
                     # If aiming up at top border
-                    if enemyShotDirection == 1 and enemyShotPreviousHit[1] == 0:
+                    if enemyShotDirection == 1 and enemyShotPreviousHit[0] == 0:
                         enemyShotDirection = 3
                         validDirection = True
                     # If aiming right at right border
-                    if enemyShotDirection == 2 and enemyShotPreviousHit[0] == 9:
+                    if enemyShotDirection == 2 and enemyShotPreviousHit[1] == 9:
                         enemyShotDirection = 4
                         validDirection = True
                     # If aiming left at left border
-                    if enemyShotDirection == 4 and enemyShotPreviousHit[0] == 0:
+                    if enemyShotDirection == 4 and enemyShotPreviousHit[1] == 0:
                         enemyShotDirection = 2
                         validDirection = True
                     else:

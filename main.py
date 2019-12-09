@@ -5,6 +5,7 @@ from shooting import *
 from start_game import *
 from CheckWin import *
 from CheckSink import *
+from altshooting import *
 import random
 
 
@@ -30,7 +31,7 @@ def Battleship():
         printBothBoards(playerBoard, hideHidden(enemyBoard))
         playerShot(playerBoard, enemyBoard)
     while check_win(playerBoard, "Player") == False and check_win(enemyBoard, "AI") == False:
-        enemyShot(playerBoard, enemyBoard, loopCount)
+        altEnemyShot(playerBoard, enemyBoard)
         for ship in player_ship_location_dict:
             if check_sink(ship, player_ship_location_dict, playerBoard) == True:
                 cells = player_ship_location_dict[ship]

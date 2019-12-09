@@ -2,41 +2,47 @@
 # order for the game to be run.
 import definingMatrices as dM
 import random
-# playerBoard = ([[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
-# enemyBoard = ([[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
+playerBoard = ([[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
+enemyBoard = ([[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
 
 
 def ship_placement_player(matrix):  # This function runs through the ship-placement sequence for the player. Call it
     # when you want the player to place their ships. It takes an empty matrix and lets the player fill it with ships.
     # Returns the matrix, and a dictionary of ship locations, in tuple form: (matrix, dict).
     player_ship_location_dict = {}
-    playerIsLazy = input("Would you like to automatically place your ships? ").lower()
-    if playerIsLazy == "yes":
-        return ship_placement_lazy(matrix)
-    if board_is_clear(matrix):
-        ships_list = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3), ('Patrol Boat', 2)]
-        dM.printBoard(matrix)
-        for ship in ships_list:
-            placed = False
-            while not placed:  # This exists so that it'll keep trying every time you give it a bad placement.
-                print("You are placing your {}. It is {} squares long.".format(ship[0], ship[1]))  # Tell the player which ship they're placing and how long it is
-                print("Would you like to place your ship vertically or horizontally?")  # ask player if they want it horizontal or vertical
-                orientation = input("Input 'Vertical' or 'Horizontal': ").lower()
-                if orientation == 'vertical' or orientation == 'horizontal':
-                    square = input("Enter the coordinates of the top-left square you want your ship to occupy in the form 'A0': ")  # ask player if they want it horizontal or vertical
-                    if check_valid_coordinates(square):
-                        if placement_is_valid(orientation, square, ship[1], matrix, "Player"):
-                            matrix, player_ship_location_dict = place_friendly_ship(orientation, square, ship[1], matrix, ship[0], player_ship_location_dict)
-                            dM.printBoard(matrix)
-                            print("You have placed your {} {}ly starting on square {}".format(ship[0], orientation, square))
-                            placed = True
-                    else:
-                        print("That's not a valid entry. Try again!")
-                else:
-                    print("That's not a valid entry. Try again!")
-        print("You have finished placing your ships!")
-    else:
-        print("Board is not clear!")
+    decided = False
+    while not decided:
+        playerIsLazy = input("Would you like to automatically place your ships, yes or no? ").lower()
+        if playerIsLazy == "yes":
+            return ship_placement_lazy(matrix)
+        elif playerIsLazy == "no":
+            decided = True
+            if board_is_clear(matrix):
+                ships_list = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3), ('Patrol Boat', 2)]
+                dM.printBoard(matrix)
+                for ship in ships_list:
+                    placed = False
+                    while not placed:  # This exists so that it'll keep trying every time you give it a bad placement.
+                        print("You are placing your {}. It is {} squares long.".format(ship[0], ship[1]))  # Tell the player which ship they're placing and how long it is
+                        print("Would you like to place your ship vertically or horizontally?")  # ask player if they want it horizontal or vertical
+                        orientation = input("Input 'Vertical' or 'Horizontal': ").lower()
+                        if orientation == 'vertical' or orientation == 'horizontal':
+                            square = input("Enter the coordinates of the top-left square you want your ship to occupy in the form 'A0': ")  # ask player if they want it horizontal or vertical
+                            if check_valid_coordinates(square):
+                                if placement_is_valid(orientation, square, ship[1], matrix, "Player"):
+                                    matrix, player_ship_location_dict = place_friendly_ship(orientation, square, ship[1], matrix, ship[0], player_ship_location_dict)
+                                    dM.printBoard(matrix)
+                                    print("You have placed your {} {}ly starting on square {}".format(ship[0], orientation, square))
+                                    placed = True
+                            else:
+                                print("Not sure what that means. Try again!")
+                        else:
+                            print("Not sure what that means. Try again!")
+                print("You have finished placing your ships!")
+            else:
+                print("Board is not clear!")
+        else:
+            print("Not sure what that means. Try again!")
     return matrix, player_ship_location_dict
 
 
@@ -50,41 +56,27 @@ def ship_placement_ai(matrix):  # This function runs through the ship-placement 
         for ship in ships_list:
             placed = False
             while not placed:  # This exists so that it'll keep trying every time you give it a bad placement.
-                # dM.printBoard(matrix)
-                # print("You are placing your {}. It is {} squares long.".format(ship[0], ship[1]))  # Tell the player which ship they're placing and how long it is
-                # print("Would you like to place your ship vertically or horizontally?")  # ask player if they want it horizontal or vertical
-                # orientation = input("Input 'Vertical' or 'Horizontal': ")
                 orientationdict = {0: "Vertical", 1: "Horizontal"}
                 orientation = orientationdict[random.randint(0, 1)].lower()
-                # square = input("Enter the coordinates of the top-left square you want your ship to occupy in the form 'A1': ")  # ask player if they want it horizontal or vertical
                 columndict = {0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H", 8: "I", 9: "J"}
                 square = ""+str(columndict[random.randint(0, 9)])+str(random.randint(0, 9))
                 if placement_is_valid(orientation, square, ship[1], matrix, "AI"):
-                    good_idea = False
-                    if orientation == "vertical" and (orientation, coordinate_converter(square)[1]) not in bad_ideas:
-                        good_idea = True
-                    elif orientation == "horizontal" and (orientation, coordinate_converter(square)[0]) not in bad_ideas:
-                        good_idea = True
-                    if good_idea:
+                    good_idea = test_idea(orientation, square, ship[1], matrix, bad_ideas)
+                    if good_idea or random.randint(0, 100) < 5:
+                        # if good_idea:
+                        #     print("Had a good idea.")
+                        # else:
+                        #     print("Had a bad idea. Doing it anyway!")
                         matrix, ai_ship_location_dict = place_enemy_ship(orientation, square, ship[1], matrix, ship[0], ai_ship_location_dict)
                         # print("The AI has placed their {} {}ly starting on square {}".format(ship[0], orientation.lower(), square))
-                        if orientation == "vertical":
-                            bad_ideas.append((orientation, coordinate_converter(square)[1]))
-                            bad_ideas.append((orientation, coordinate_converter(square)[1]-1))
-                            bad_ideas.append((orientation, coordinate_converter(square)[1]+1))
-                        else:
-                            bad_ideas.append((orientation, coordinate_converter(square)[0]))
-                            bad_ideas.append((orientation, coordinate_converter(square)[0] - 1))
-                            bad_ideas.append((orientation, coordinate_converter(square)[0] + 1))
+                        bad_ideas = add_bad_ideas(orientation, square, ship[1], bad_ideas)
                         placed = True
-        #             else:
-        #                 print("That's not a valid entry.")
-        #         else:
-        #             print("That's not a valid entry.")
-        # print("You have finished placing your ships!")
+                    # else:
+                    #     print("Had a bad idea.")
     else:
         print("Board is not clear!")
     return matrix, ai_ship_location_dict
+
 
 def ship_placement_lazy(matrix):
     player_ship_location_dict = {}
@@ -95,42 +87,25 @@ def ship_placement_lazy(matrix):
         for ship in ships_list:
             placed = False
             while not placed:  # This exists so that it'll keep trying every time you give it a bad placement.
-                # dM.printBoard(matrix)
-                # print("You are placing your {}. It is {} squares long.".format(ship[0], ship[1]))  # Tell the player which ship they're placing and how long it is
-                # print("Would you like to place your ship vertically or horizontally?")  # ask player if they want it horizontal or vertical
-                # orientation = input("Input 'Vertical' or 'Horizontal': ")
                 orientationdict = {0: "Vertical", 1: "Horizontal"}
                 orientation = orientationdict[random.randint(0, 1)].lower()
-                # square = input("Enter the coordinates of the top-left square you want your ship to occupy in the form 'A1': ")  # ask player if they want it horizontal or vertical
                 columndict = {0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H", 8: "I", 9: "J"}
                 square = "" + str(columndict[random.randint(0, 9)]) + str(random.randint(0, 9))
                 if placement_is_valid(orientation, square, ship[1], matrix, "AI"):
-                    good_idea = False
-                    if orientation == "vertical" and (orientation, coordinate_converter(square)[1]) not in bad_ideas:
-                        good_idea = True
-                    elif orientation == "horizontal" and (
-                    orientation, coordinate_converter(square)[0]) not in bad_ideas:
-                        good_idea = True
-                    if good_idea:
-                        matrix, player_ship_location_dict = place_lazy_ship(orientation, square, ship[1], matrix, ship[0],
-                                                                         player_ship_location_dict)
-                        # print("The AI has placed their {} {}ly starting on square {}".format(ship[0], orientation.lower(), square))
-                        if orientation == "vertical":
-                            bad_ideas.append((orientation, coordinate_converter(square)[1]))
-                            bad_ideas.append((orientation, coordinate_converter(square)[1] - 1))
-                            bad_ideas.append((orientation, coordinate_converter(square)[1] + 1))
-                        else:
-                            bad_ideas.append((orientation, coordinate_converter(square)[0]))
-                            bad_ideas.append((orientation, coordinate_converter(square)[0] - 1))
-                            bad_ideas.append((orientation, coordinate_converter(square)[0] + 1))
+                    good_idea = test_idea(orientation, square, ship[1], matrix, bad_ideas)
+                    if good_idea or random.randint(0, 100) < 5:
+                        # if good_idea:
+                        #     # print("Had a good idea.")
+                        # else:
+                        #     # print("Had a bad idea. Doing it anyway!")
+                        matrix, player_ship_location_dict = place_enemy_ship(orientation, square, ship[1], matrix, ship[0], player_ship_location_dict)
+                        bad_ideas = add_bad_ideas(orientation, square, ship[1], bad_ideas)
                         placed = True
-        #             else:
-        #                 print("That's not a valid entry.")
-        #         else:
-        #             print("That's not a valid entry.")
-        # print("You have finished placing your ships!")
+                    # else:
+                    #     # print("Had a bad idea.")
     else:
         print("Board is not clear!")
+    print("AI has finished placing your ships!")
     return matrix, player_ship_location_dict
 
 
@@ -277,6 +252,47 @@ def place_lazy_ship(orientation, square, length, matrix, ship_name, player_ship_
     player_ship_location_dict[ship_name] = cells
     # print(player_ship_location_dict)
     return matrix, player_ship_location_dict
+
+
+def test_idea(orientation, square, length, matrix, bad_ideas):  # checks if idea is bad
+    cell = coordinate_converter(square)
+    if orientation == "vertical":
+        for i in range(0, length):
+            if (cell[0]+i, cell[1]) in bad_ideas:
+                return False
+    elif orientation == "horizontal":
+        for i in range(0, length):
+            if (cell[0], cell[1]+i) in bad_ideas:
+                return False
+    return True
+
+
+def add_bad_ideas(orientation, square, length, bad_ideas):
+    coords = coordinate_converter(square)
+    cells = []
+    if orientation == "vertical":
+        for i in range(0, length):
+            cells.append((coords[0] + i, coords[1]))
+    elif orientation == "horizontal":
+        for i in range(0, length):
+            cells.append((coords[0], coords[1] + i))
+    for cell in cells:
+        if cell not in bad_ideas:
+            bad_ideas.append(cell)
+            # print("Added new bad idea at ", cell)
+        if (cell[0]+1, cell[1]) not in bad_ideas:
+            bad_ideas.append((cell[0]+1, cell[1]))
+            # print("Added new bad idea at ", (cell[0]+1, cell[1]))
+        if (cell[0], cell[1]+1) not in bad_ideas:
+            bad_ideas.append((cell[0], cell[1]+1))
+            # print("Added new bad idea at ", (cell[0], cell[1]+1))
+        if (cell[0]-1, cell[1]) not in bad_ideas:
+            bad_ideas.append((cell[0]-1, cell[1]))
+            # print("Added new bad idea at ", (cell[0]-1, cell[1]))
+        if (cell[0], cell[1]-1) not in bad_ideas:
+            bad_ideas.append((cell[0], cell[1]-1))
+            # print("Added new bad idea at ", (cell[0], cell[1]-1))
+    return bad_ideas
 
 
 if __name__ == "__main__":

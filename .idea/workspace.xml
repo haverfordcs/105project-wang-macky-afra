@@ -37,7 +37,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.placement">
+  <component name="RunManager" selected="Python.main">
     <configuration name="CheckWin" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="105project-wang-macky-afra" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -145,8 +145,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.placement" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.placement" />
         <item itemvalue="Python.start_game" />
         <item itemvalue="Python.CheckWin" />
         <item itemvalue="Python.shooting" />

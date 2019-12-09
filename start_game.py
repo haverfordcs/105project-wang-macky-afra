@@ -7,7 +7,7 @@ import random
 
 
 def Start():
-    print("Welcome to Battleship! + Do you know the rules of Battleship?")
+    print("Welcome to Battleship! Do you know the rules of Battleship?")
     display_rules = False
     while display_rules == False:
         rules = input("Input 'Yes' or 'No': ")

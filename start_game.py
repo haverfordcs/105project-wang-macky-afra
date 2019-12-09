@@ -41,13 +41,12 @@ def Start():
 #Whoever wins starts the game
 def RockPaperScissors():
         print("Play rock, paper, scissors to decide who shoots first!")
-
         #True = player wins
         #False = AI wins
         player = False
         while player == False:
             AI = random.randint(1, 3)
-            AI_choice = AI
+            print("AI has chosen!")
             if AI == 1:
                 AI_choice = "rock"
             elif AI == 2:
@@ -60,31 +59,31 @@ def RockPaperScissors():
 
             elif player == "rock":
                 if AI_choice == "paper":
-                    print("AI chose:", AI_choice, ".", AI_choice, "covers", player)
+                    print("AI chose paper. Paper covers rock.")
                     print("You lose! AI shoots first")
                     return False
                 else:
-                    print("AI chose:", AI_choice,".", player, "smashes", AI_choice)
+                    print("AI chose scissors. Rock smashes scissors.")
                     print("You win! You shoot first")
                     return True
 
             elif player == "paper":
                 if AI_choice == "scissors":
-                    print("AI chose:", AI_choice, ".", AI_choice, "cuts", player)
+                    print("AI chose scissors. Scissors cut paper.")
                     print("You lose! AI shoots first")
                     return False
                 else:
-                    print("AI chose:", AI_choice,".", player, "covers", AI_choice)
+                    print("AI chose rock. Paper covers rock.")
                     print("You win! You shoot first")
                     return True
 
             elif player == "scissors":
                 if AI_choice == "rock":
-                    print("AI chose:", AI_choice, ".", AI_choice, "covers", player)
+                    print("AI chose rock. Rock smashes scissors.")
                     print("You lose! AI shoots first")
                     return False
                 else:
-                    print("AI chose:", AI_choice,".", player, "cuts", AI_choice)
+                    print("AI chose paper. Scissors cut paper.")
                     print("You win! You shoot first")
                     return True
 
@@ -93,6 +92,6 @@ def RockPaperScissors():
 
             player = False
 
-
-#Start()
-#RockPaperScissors()
+if __name__ == "__main__":
+    #Start()
+    RockPaperScissors()

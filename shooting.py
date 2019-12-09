@@ -230,7 +230,6 @@ def enemyShot(playerBoard, enemyBoard, loopCount):
                     loopCount += 1
                     if loopCount > 3:
                         loopCount = 0
-                        enemyShotPreviousHit = ()
                         enemyShotHitTrackerPerShip = []
                         enemyShotTargetAcquired = False
                         # break

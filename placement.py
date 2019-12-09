@@ -34,7 +34,6 @@ def ship_placement_player(matrix):  # This function runs through the ship-placem
                         print("That's not a valid entry. Try again!")
                 else:
                     print("That's not a valid entry. Try again!")
-        dM.printBoard(matrix)
         print("You have finished placing your ships!")
     else:
         print("Board is not clear!")

@@ -38,59 +38,65 @@ def Start():
             print("Error: That is not a valid entry")
 
 
-#Whoever wins starts the game
+# Whoever wins starts the game
 def RockPaperScissors():
-        print("Play rock, paper, scissors to decide who shoots first!")
-        #True = player wins
-        #False = AI wins
-        player = False
-        while player == False:
-            AI = random.randint(1, 3)
-            print("AI has chosen!")
-            if AI == 1:
-                AI_choice = "rock"
-            elif AI == 2:
-                AI_choice = "paper"
-            elif AI == 3:
-                AI_choice = "scissors"
-            player = input("Rock, Paper, or Scissors? ").lower()
-            if player == AI_choice:
-                print("Tie!")
+    print("Play rock, paper, scissors to decide who shoots first!")
+    # True = player wins
+    # False = AI wins
+    player = False
+    while player == False:
+        AI = random.randint(1, 3)
+        # print("AI has chosen!")
+        if AI == 1:
+            AI_choice = "rock"
+        elif AI == 2:
+            AI_choice = "paper"
+        else:
+            AI_choice = "scissors"
+        player = input("Rock, Paper, or Scissors? ").lower()
+        if player == AI_choice:
+            print("Tie!")
 
-            elif player == "rock":
-                if AI_choice == "paper":
-                    print("AI chose paper. Paper covers rock.")
-                    print("You lose! AI shoots first")
-                    return False
-                else:
-                    print("AI chose scissors. Rock smashes scissors.")
-                    print("You win! You shoot first")
-                    return True
-
-            elif player == "paper":
-                if AI_choice == "scissors":
-                    print("AI chose scissors. Scissors cut paper.")
-                    print("You lose! AI shoots first")
-                    return False
-                else:
-                    print("AI chose rock. Paper covers rock.")
-                    print("You win! You shoot first")
-                    return True
-
-            elif player == "scissors":
-                if AI_choice == "rock":
-                    print("AI chose rock. Rock smashes scissors.")
-                    print("You lose! AI shoots first")
-                    return False
-                else:
-                    print("AI chose paper. Scissors cut paper.")
-                    print("You win! You shoot first")
-                    return True
-
+        elif player == "rock":
+            if AI_choice == "paper":
+                print("AI chose paper. Paper covers rock.")
+                print("You lose! AI shoots first")
+                x = input("Press enter to continue")
+                return False
             else:
-                print("That's not a valid play. Check your spelling!")
+                print("AI chose scissors. Rock smashes scissors.")
+                print("You win! You shoot first")
+                x = input("Press enter to continue")
+                return True
 
-            player = False
+        elif player == "paper":
+            if AI_choice == "scissors":
+                print("AI chose scissors. Scissors cut paper.")
+                print("You lose! AI shoots first")
+                x = input("Press enter to continue")
+                return False
+            else:
+                print("AI chose rock. Paper covers rock.")
+                print("You win! You shoot first")
+                x = input("Press enter to continue")
+                return True
+
+        elif player == "scissors":
+            if AI_choice == "rock":
+                print("AI chose rock. Rock smashes scissors.")
+                print("You lose! AI shoots first")
+                x = input("Press enter to continue")
+                return False
+            else:
+                print("AI chose paper. Scissors cut paper.")
+                print("You win! You shoot first")
+                x = input("Press enter to continue")
+                return True
+
+        else:
+            print("That's not a valid play. Check your spelling!")
+
+        player = False
 
 if __name__ == "__main__":
     #Start()

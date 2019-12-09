@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14107802-395f-4f6f-ac75-515e8a707c3b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/start_game.py" beforeDir="false" afterPath="$PROJECT_DIR$/start_game.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,7 +38,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.start_game">
+  <component name="RunManager" selected="Python.main">
     <configuration name="CheckWin" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="105project-wang-macky-afra" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -144,8 +146,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.start_game" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.start_game" />
         <item itemvalue="Python.placement" />
         <item itemvalue="Python.CheckWin" />
         <item itemvalue="Python.shooting" />
@@ -226,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575869171468</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Touched up rock-paper-scissors">
+      <created>1575869598273</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1575869598273</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -249,6 +258,7 @@
     <MESSAGE value="Improved ship placement AI" />
     <MESSAGE value="Fixed typo in start_game" />
     <MESSAGE value="Fixed bug where automatically placing ships would cause instant loss" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug where automatically placing ships would cause instant loss" />
+    <MESSAGE value="Touched up rock-paper-scissors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Touched up rock-paper-scissors" />
   </component>
 </project>

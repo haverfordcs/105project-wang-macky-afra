@@ -26,8 +26,8 @@ def Battleship():
     playerBoard, player_ship_location_dict = ship_placement_player(playerBoard)
     enemyBoard, ai_ship_location_dict = ship_placement_ai(enemyBoard)
     playerFirst = RockPaperScissors()
-    printBothBoards(playerBoard, hideHidden(enemyBoard))
     if playerFirst == True:
+        printBothBoards(playerBoard, hideHidden(enemyBoard))
         playerShot(playerBoard, enemyBoard)
     while check_win(playerBoard, "Player") == False and check_win(enemyBoard, "AI") == False:
         enemyShot(playerBoard, enemyBoard, loopCount)

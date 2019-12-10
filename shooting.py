@@ -1,8 +1,12 @@
 # File for player shooting and AI shooting. Does NOT include prompting player input and sink detection
 import random
+from CheckSink import *
+
 # Temporary matrices for testing
 # playerBoard = ([['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],['O','O','O','O','O','O','O','O',' ',' ']])
 # enemyBoard = ([['I','I',' ',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ','V',' ',' ',' ','X',' '],[' ',' ','X',' ','V',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ','X',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ','X',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']])
+
+
 def printBoard(player):
     print("---------------------------------------------")
     print("                 Your Board                  ")
@@ -69,7 +73,7 @@ def coordinate_converter(square):  # Takes A1 (as a string) and turns it into a 
     else:
         print("Tried to convert invalid coordinates")
 
-def playerShot(playerBoard, enemyBoard):
+def playerShot(playerBoard, enemyBoard, ai_ship_location_dict):
     # Keeps firing if you target a tile you have already shot at before
     firing = 1
     while firing == 1:
@@ -81,8 +85,11 @@ def playerShot(playerBoard, enemyBoard):
             # Hit
             if enemyBoard[row][column] == "I":
                 enemyBoard[row][column] = "X"
+                ship, sunk = check_sink(ai_ship_location_dict, enemyBoard)
                 printBothBoards(playerBoard, hideHidden(enemyBoard))
                 print("You hit an enemy ship!")
+                if sunk:
+                    print("You sunk the enemy {}!".format(ship))
                 firing = 0
 
             # Miss
@@ -95,7 +102,7 @@ def playerShot(playerBoard, enemyBoard):
             # Already shot here - shoot again
             else:
                 print("You have already shot at these coordinates. Try again.")
-    x = input("Press enter to continue")
+    # x = input("Press enter to continue")
 
 
 enemyShotHitTrackerPerShip = []

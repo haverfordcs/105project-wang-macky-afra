@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="14107802-395f-4f6f-ac75-515e8a707c3b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CheckSink.py" beforeDir="false" afterPath="$PROJECT_DIR$/CheckSink.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/altshooting.py" beforeDir="false" afterPath="$PROJECT_DIR$/altshooting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shooting.py" beforeDir="false" afterPath="$PROJECT_DIR$/shooting.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/start_game.py" beforeDir="false" afterPath="$PROJECT_DIR$/start_game.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -146,8 +150,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.altshooting" />
         <item itemvalue="Python.start_game" />
+        <item itemvalue="Python.altshooting" />
         <item itemvalue="Python.placement" />
         <item itemvalue="Python.CheckWin" />
       </list>
@@ -241,7 +245,21 @@
       <option name="project" value="LOCAL" />
       <updated>1575870224880</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="typos">
+      <created>1575942937947</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1575942937947</updated>
+    </task>
+    <task id="LOCAL-00013" summary="more typos">
+      <created>1575942967488</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1575942967488</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -266,6 +284,8 @@
     <MESSAGE value="Fixed bug where automatically placing ships would cause instant loss" />
     <MESSAGE value="Touched up rock-paper-scissors" />
     <MESSAGE value="Touched up rock-paper-scissors and game start flow" />
-    <option name="LAST_COMMIT_MESSAGE" value="Touched up rock-paper-scissors and game start flow" />
+    <MESSAGE value="typos" />
+    <MESSAGE value="more typos" />
+    <option name="LAST_COMMIT_MESSAGE" value="more typos" />
   </component>
 </project>

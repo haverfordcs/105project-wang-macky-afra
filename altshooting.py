@@ -1,12 +1,16 @@
 import random
 from shooting import *
-
+from CheckSink import *
 
 target = ()
-direction = random.randint(1, 2)
-def altEnemyShot(playerBoard, enemyBoard):
+direction_list = random.randint(1, 2)
+directionDict = {1: "Right", 2: "Up"}
+# print("Direction set to {}".format(directionDict[direction_list]))
+
+
+def altEnemyShot(playerBoard, enemyBoard, player_ship_location_dict):
     global target
-    global direction
+    global direction_list
     firing = 1
     while firing:
         # print("Checking for target")
@@ -16,7 +20,9 @@ def altEnemyShot(playerBoard, enemyBoard):
             if playerBoard[target[0]][target[1]] == "V":
                 # print("Target at", target, "sunk!")
                 target = ()
-                direction = random.randint(1, 2)
+                direction_list = random.randint(1, 2)
+                directionDict = {1: "Right", 2: "Up"}
+                # print("Target sunk. Direction set to {}".format(directionDict[direction_list]))
 
         if not target:
             # print("No target yet. Checking for new target!")
@@ -30,8 +36,11 @@ def altEnemyShot(playerBoard, enemyBoard):
                 # Hit
                 if playerBoard[row][column] == "O":
                     playerBoard[row][column] = "X"
+                    ship, sunk = check_sink(player_ship_location_dict, playerBoard)
                     printBothBoards(playerBoard, hideHidden(enemyBoard))
                     print("Enemy hit!")
+                    if sunk:
+                        print("The enemy sunk your {}!".format(ship))
 
                     # Ending Loop
                     firing = 0
@@ -51,27 +60,32 @@ def altEnemyShot(playerBoard, enemyBoard):
 
         elif target:
             # print("Target locked at {}.".format(target))
-            if direction == 1:
+            if direction_list == 1:
+                # print("Direction is RLUD")
                 for direction in ['right', 'left', 'up', 'down']:
-                    # print("Checking {} from target".format(direction))
+                    print("Checking {} from target".format(direction))
                     if check_direction(direction, playerBoard, target):
-                        # print("Shooting {} from target!".format(direction))
-                        shoot(direction, playerBoard, target, enemyBoard)
+                        print("Shooting {} from target!".format(direction))
+                        shoot(direction, playerBoard, target, enemyBoard, player_ship_location_dict)
+                        firing = 0
+                        break
+            elif direction_list == 2:
+                # print("Direction is UDRL")
+                for direction in ['up', 'down', 'right', 'left']:
+                    print("Checking {} from target".format(direction))
+                    if check_direction(direction, playerBoard, target):
+                        print("Shooting {} from target!".format(direction))
+                        shoot(direction, playerBoard, target, enemyBoard, player_ship_location_dict)
                         firing = 0
                         break
             else:
-                for direction in ['up', 'down', 'right', 'left']:
-                    # print("Checking {} from target".format(direction))
-                    if check_direction(direction, playerBoard, target):
-                        # print("Shooting {} from target!".format(direction))
-                        shoot(direction, playerBoard, target, enemyBoard)
-                        firing = 0
-                        break
+                print("The direction's messed up. It looks like this:")
+                print(direction_list)
+
             if firing == 1:
                 print("Something odd happened. None of the directions worked. Clearing target.")
                 target = ()
-                direction = random.randint(1, 2)
-            firing = 0
+                direction_list = random.randint(1, 2)
 
 
 def targetScan(board):
@@ -139,7 +153,7 @@ def check_direction(direction, playerBoard, target):
             return True
 
 
-def shoot(direction, playerBoard, target, enemyBoard):
+def shoot(direction, playerBoard, target, enemyBoard, player_ship_location_dict):
     row = target[0]
     column = target[1]
     if direction == 'right':
@@ -147,8 +161,11 @@ def shoot(direction, playerBoard, target, enemyBoard):
         # Hit
         if playerBoard[row][column] == "O":
             playerBoard[row][column] = "X"
+            ship, sunk = check_sink(player_ship_location_dict, playerBoard)
             printBothBoards(playerBoard, hideHidden(enemyBoard))
             print("Enemy hit!")
+            if sunk:
+                print("The enemy sunk your {}!".format(ship))
 
         # Miss
         elif playerBoard[row][column] == " ":
@@ -157,15 +174,18 @@ def shoot(direction, playerBoard, target, enemyBoard):
             print("Enemy miss!")
 
         elif playerBoard[row][column] == "X":
-            shoot(direction, playerBoard, (row, column), enemyBoard)
+            shoot(direction, playerBoard, (row, column), enemyBoard, player_ship_location_dict)
 
     elif direction == 'left':
         column -= 1
         # Hit
         if playerBoard[row][column] == "O":
             playerBoard[row][column] = "X"
+            ship, sunk = check_sink(player_ship_location_dict, playerBoard)
             printBothBoards(playerBoard, hideHidden(enemyBoard))
             print("Enemy hit!")
+            if sunk:
+                print("The enemy sunk your {}!".format(ship))
 
         # Miss
         elif playerBoard[row][column] == " ":
@@ -174,15 +194,18 @@ def shoot(direction, playerBoard, target, enemyBoard):
             print("Enemy miss!")
 
         elif playerBoard[row][column] == "X":
-            shoot(direction, playerBoard, (row, column), enemyBoard)
+            shoot(direction, playerBoard, (row, column), enemyBoard, player_ship_location_dict)
 
     elif direction == 'up':
         row -= 1
         # Hit
         if playerBoard[row][column] == "O":
             playerBoard[row][column] = "X"
+            ship, sunk = check_sink(player_ship_location_dict, playerBoard)
             printBothBoards(playerBoard, hideHidden(enemyBoard))
             print("Enemy hit!")
+            if sunk:
+                print("The enemy sunk your {}!".format(ship))
 
         # Miss
         elif playerBoard[row][column] == " ":
@@ -191,15 +214,18 @@ def shoot(direction, playerBoard, target, enemyBoard):
             print("Enemy miss!")
 
         elif playerBoard[row][column] == "X":
-            shoot(direction, playerBoard, (row, column), enemyBoard)
+            shoot(direction, playerBoard, (row, column), enemyBoard, player_ship_location_dict)
 
     elif direction == 'down':
         row += 1
         # Hit
         if playerBoard[row][column] == "O":
             playerBoard[row][column] = "X"
+            ship, sunk = check_sink(player_ship_location_dict, playerBoard)
             printBothBoards(playerBoard, hideHidden(enemyBoard))
             print("Enemy hit!")
+            if sunk:
+                print("The enemy sunk your {}!".format(ship))
 
         # Miss
         elif playerBoard[row][column] == " ":
@@ -208,4 +234,4 @@ def shoot(direction, playerBoard, target, enemyBoard):
             print("Enemy miss!")
 
         elif playerBoard[row][column] == "X":
-            shoot(direction, playerBoard, (row, column), enemyBoard)
+            shoot(direction, playerBoard, (row, column), enemyBoard, player_ship_location_dict)

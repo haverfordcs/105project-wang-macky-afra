@@ -100,4 +100,6 @@ def RockPaperScissors():
 
 if __name__ == "__main__":
     #Start()
-    RockPaperScissors()
+    x = 1
+    while x:
+        RockPaperScissors()

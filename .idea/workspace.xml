@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="14107802-395f-4f6f-ac75-515e8a707c3b" name="Default Changelist" comment="">
+    <list default="true" id="14107802-395f-4f6f-ac75-515e8a707c3b" name="Default Changelist" comment="Added comments to Main, Placement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CheckSink.py" beforeDir="false" afterPath="$PROJECT_DIR$/CheckSink.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CheckWin.py" beforeDir="false" afterPath="$PROJECT_DIR$/CheckWin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/altshooting.py" beforeDir="false" afterPath="$PROJECT_DIR$/altshooting.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shooting.py" beforeDir="false" afterPath="$PROJECT_DIR$/shooting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start_game.py" beforeDir="false" afterPath="$PROJECT_DIR$/start_game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/placement.py" beforeDir="false" afterPath="$PROJECT_DIR$/placement.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -259,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575942967488</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Fixed lots of stuff, including print order and checksink">
+      <created>1575948836728</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1575948836728</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -286,6 +293,7 @@
     <MESSAGE value="Touched up rock-paper-scissors and game start flow" />
     <MESSAGE value="typos" />
     <MESSAGE value="more typos" />
-    <option name="LAST_COMMIT_MESSAGE" value="more typos" />
+    <MESSAGE value="Fixed lots of stuff, including print order and checksink" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed lots of stuff, including print order and checksink" />
   </component>
 </project>

@@ -11,10 +11,10 @@ def ship_placement_player(matrix):  # This function runs through the ship-placem
     # Returns the matrix, and a dictionary of ship locations, in tuple form: (matrix, dict).
     player_ship_location_dict = {}
     decided = False
-    while not decided:
+    while not decided:  # While loop to allow bad inputs for playerIsLazy
         playerIsLazy = input("Would you like to automatically place your ships, yes or no? ").lower()
         if playerIsLazy == "yes":
-            return ship_placement_lazy(matrix)
+            return ship_placement_lazy(matrix)  # Automatically place ships
         elif playerIsLazy == "no":
             decided = True
             if board_is_clear(matrix):
@@ -22,22 +22,22 @@ def ship_placement_player(matrix):  # This function runs through the ship-placem
                 dM.printBoard(matrix)
                 for ship in ships_list:
                     placed = False
-                    while not placed:  # This exists so that it'll keep trying every time you give it a bad placement.
+                    while not placed:  # This exists so that it'll keep trying every time you give it a bad placement- either orientation or cell.
                         print("You are placing your {}. It is {} squares long.".format(ship[0], ship[1]))  # Tell the player which ship they're placing and how long it is
                         print("Would you like to place your ship vertically or horizontally?")  # ask player if they want it horizontal or vertical
                         orientation = input("Input 'Vertical' or 'Horizontal': ").lower()
-                        if orientation == 'vertical' or orientation == 'horizontal':
-                            square = input("Enter the coordinates of the top-left square you want your ship to occupy in the form 'A0': ")  # ask player if they want it horizontal or vertical
-                            if check_valid_coordinates(square):
-                                if placement_is_valid(orientation, square, ship[1], matrix, "Player"):
-                                    matrix, player_ship_location_dict = place_friendly_ship(orientation, square, ship[1], matrix, ship[0], player_ship_location_dict)
-                                    dM.printBoard(matrix)
+                        if orientation == 'vertical' or orientation == 'horizontal':  # check validity of orientation
+                            square = input("Enter the coordinates of the top-left square you want your ship to occupy in the form 'A0': ")  # ask player where to put the ship
+                            if check_valid_coordinates(square):  # check validity of coordinates
+                                if placement_is_valid(orientation, square, ship[1], matrix, "Player"):  # Checks validity of placement
+                                    matrix, player_ship_location_dict = place_friendly_ship(orientation, square, ship[1], matrix, ship[0], player_ship_location_dict)  # place the ship!
+                                    dM.printBoard(matrix)  # print the board again
                                     print("You have placed your {} {}ly starting on square {}".format(ship[0], orientation, square))
                                     placed = True
                             else:
-                                print("Not sure what that means. Try again!")
+                                print("Not sure what that means. Try again!")  # Invalid cell error message
                         else:
-                            print("Not sure what that means. Try again!")
+                            print("Not sure what that means. Try again!")  # Invalid orientation error message
                 print("You have finished placing your ships!")
             else:
                 print("Board is not clear!")
@@ -52,17 +52,18 @@ def ship_placement_ai(matrix):  # This function runs through the ship-placement 
     ai_ship_location_dict = {}
     if board_is_clear(matrix):
         ships_list = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3), ('Patrol Boat', 2)]
-        bad_ideas = []
+        bad_ideas = []  # A list of cells it probably won't place a ship in
         for ship in ships_list:
             placed = False
-            while not placed:  # This exists so that it'll keep trying every time you give it a bad placement.
+            while not placed:  # This exists so that it'll keep trying every time the AI produces a bad placement.
                 orientationdict = {0: "Vertical", 1: "Horizontal"}
                 orientation = orientationdict[random.randint(0, 1)].lower()
                 columndict = {0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H", 8: "I", 9: "J"}
                 square = ""+str(columndict[random.randint(0, 9)])+str(random.randint(0, 9))
                 if placement_is_valid(orientation, square, ship[1], matrix, "AI"):
-                    good_idea = test_idea(orientation, square, ship[1], matrix, bad_ideas)
-                    if good_idea or random.randint(0, 100) < 5:
+                    good_idea = test_idea(orientation, square, ship[1], bad_ideas)
+                    if good_idea or random.randint(0, 100) < 5:  # If the placement is a good idea. Will also rarely allow a bad idea through, for variety.
+                        # These are debugging print statements for the good_ideas system
                         # if good_idea:
                         #     print("Had a good idea.")
                         # else:
@@ -78,7 +79,7 @@ def ship_placement_ai(matrix):  # This function runs through the ship-placement 
     return matrix, ai_ship_location_dict
 
 
-def ship_placement_lazy(matrix):
+def ship_placement_lazy(matrix):  # This is basically the AI Placement, but placing on the player's board.
     player_ship_location_dict = {}
     if board_is_clear(matrix):
         ships_list = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3),
@@ -92,7 +93,7 @@ def ship_placement_lazy(matrix):
                 columndict = {0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H", 8: "I", 9: "J"}
                 square = "" + str(columndict[random.randint(0, 9)]) + str(random.randint(0, 9))
                 if placement_is_valid(orientation, square, ship[1], matrix, "AI"):
-                    good_idea = test_idea(orientation, square, ship[1], matrix, bad_ideas)
+                    good_idea = test_idea(orientation, square, ship[1], bad_ideas)
                     if good_idea or random.randint(0, 100) < 5:
                         # if good_idea:
                         #     # print("Had a good idea.")
@@ -109,7 +110,7 @@ def ship_placement_lazy(matrix):
     return matrix, player_ship_location_dict
 
 
-def board_is_clear(matrix):
+def board_is_clear(matrix):  # Checks if the matrix is empty. Returns True if it is, and False if it isn't.
     clear = True
     for row in range(1, len(matrix)):
         for cell in range(1, len(matrix[row])):
@@ -156,7 +157,7 @@ def overlap_valid(orientation, square, length, matrix, identity):  # Function th
     # print("Checking overlap validity...")
     if orientation == 'vertical':
         for i in range(0, length):
-            if matrix[cell[0]+i][cell[1]] in "OI":
+            if matrix[cell[0]+i][cell[1]] in "OI":  # If the cell's value is O or I, that's a ship and the placement overlaps.
                 if identity == "Player":
                     print("Ship overlaps other ships. Placement is invalid.")
                 return False
@@ -164,7 +165,7 @@ def overlap_valid(orientation, square, length, matrix, identity):  # Function th
         return True
     elif orientation == 'horizontal':
         for i in range(0, length):
-            if matrix[cell[0]][cell[1]+i] in "OI":
+            if matrix[cell[0]][cell[1]+i] in "OI":  # If the cell's value is O or I, that's a ship and the placement overlaps.
                 if identity == "Player":
                     print("Ship overlaps other ships. Placement is invalid.")
                 return False
@@ -184,7 +185,7 @@ def check_valid_coordinates(square):  # Checks if a given string input is a vali
         return False
 
 
-def coordinate_converter(square):  # Takes A0 (as a string) and turns it into a tuple (0,0) with row first
+def coordinate_converter(square):  # Takes A0 (as a string) and turns it into a tuple (0, 0) with row first
     column_dict = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9}
     if check_valid_coordinates(square):
         coordinates = ((int(square[1:])), (column_dict[square[:1].upper()]))
@@ -196,12 +197,12 @@ def coordinate_converter(square):  # Takes A0 (as a string) and turns it into a 
 
 def place_friendly_ship(orientation, square, length, matrix, ship_name, player_ship_location_dict):  # Takes all the variables listed and returns a tuple: the first element is a matrix with the ship added, the second is an updated ships_location_dict.
     coords = coordinate_converter(square)
-    cells = []
+    cells = []  # This will eventually become a dictionary entry
     if orientation == "vertical":
         for i in range(0, length):
             # print("Placing at coordinates ({}, {})".format(coords[0]+i, coords[1]))
-            matrix[coords[0]+i][coords[1]] = "O"
-            cells.append((coords[0]+i, coords[1]))
+            matrix[coords[0]+i][coords[1]] = "O"  # Places the ship
+            cells.append((coords[0]+i, coords[1]))  # Adds ship cells to cells list
     elif orientation == "horizontal":
         for i in range(0, length):
             # print("Placing at coordinates ({}, {})".format(coords[0], coords[1]+i))
@@ -209,7 +210,7 @@ def place_friendly_ship(orientation, square, length, matrix, ship_name, player_s
             cells.append((coords[0], coords[1]+i))
     else:
         print("Tried to place a ship with invalid orientation")
-    player_ship_location_dict[ship_name] = cells
+    player_ship_location_dict[ship_name] = cells  # Turns cells list into a dictionary entry in the ship_location_dict
     # print(player_ship_location_dict)
     return matrix, player_ship_location_dict
 
@@ -220,8 +221,8 @@ def place_enemy_ship(orientation, square, length, matrix, ship_name, ai_ship_loc
     if orientation == "vertical":
         for i in range(0, length):
             # print("Placing at coordinates ({}, {})".format(coords[0]+i, coords[1]))
-            matrix[coords[0]+i][coords[1]] = "I"
-            cells.append((coords[0]+i, coords[1]))
+            matrix[coords[0]+i][coords[1]] = "I"  # Places the ship
+            cells.append((coords[0]+i, coords[1]))  # Adds ship cells to cells list
     elif orientation == "horizontal":
         for i in range(0, length):
             # print("Placing at coordinates ({}, {})".format(coords[0], coords[1]+i))
@@ -229,54 +230,54 @@ def place_enemy_ship(orientation, square, length, matrix, ship_name, ai_ship_loc
             cells.append((coords[0], coords[1]+i))
     else:
         print("Tried to place a ship with invalid orientation")
-    ai_ship_location_dict[ship_name] = cells
+    ai_ship_location_dict[ship_name] = cells  # Turns cells list into a dictionary entry in the ship_location_dict
     # print(player_ship_location_dict)
     return matrix, ai_ship_location_dict
 
 
-def place_lazy_ship(orientation, square, length, matrix, ship_name, player_ship_location_dict):  # Takes all the variables listed and returns a tuple: the first element is a matrix with the ship added, the second is an updated ships_location_dict.
+def place_lazy_ship(orientation, square, length, matrix, ship_name, player_ship_location_dict):  # Basically the same as AI ship placement, but places on the player's board.
     coords = coordinate_converter(square)
     cells = []
     if orientation == "vertical":
         for i in range(0, length):
             # print("Placing at coordinates ({}, {})".format(coords[0]+i, coords[1]))
-            matrix[coords[0]+i][coords[1]] = "O"
-            cells.append((coords[0]+i, coords[1]))
+            matrix[coords[0]+i][coords[1]] = "O"  # Places the ship
+            cells.append((coords[0]+i, coords[1]))  # Adds the ship's cells to the cells list
     elif orientation == "horizontal":
         for i in range(0, length):
             # print("Placing at coordinates ({}, {})".format(coords[0], coords[1]+i))
-            matrix[coords[0]][coords[1]+i] = "O"
-            cells.append((coords[0], coords[1]+i))
+            matrix[coords[0]][coords[1]+i] = "O"  # Places the ship
+            cells.append((coords[0], coords[1]+i))  # Adds the ship's cells to the cells list
     else:
         print("Tried to place a ship with invalid orientation")
-    player_ship_location_dict[ship_name] = cells
+    player_ship_location_dict[ship_name] = cells  # Puts the ship's cells into the ship_location_dict
     # print(player_ship_location_dict)
     return matrix, player_ship_location_dict
 
 
-def test_idea(orientation, square, length, matrix, bad_ideas):  # checks if idea is bad
+def test_idea(orientation, square, length, bad_ideas):  # checks if idea is bad: if the ship placement goes in any of the bad_ideas cells.
     cell = coordinate_converter(square)
     if orientation == "vertical":
         for i in range(0, length):
-            if (cell[0]+i, cell[1]) in bad_ideas:
+            if (cell[0]+i, cell[1]) in bad_ideas:  # If any of the ship's cells are on the bad_ideas list
                 return False
     elif orientation == "horizontal":
         for i in range(0, length):
-            if (cell[0], cell[1]+i) in bad_ideas:
+            if (cell[0], cell[1]+i) in bad_ideas:  # Likewise
                 return False
     return True
 
 
-def add_bad_ideas(orientation, square, length, bad_ideas):
+def add_bad_ideas(orientation, square, length, bad_ideas):  # Places all cells in or adjacent to the new ship placement into the bad_ideas list.
     coords = coordinate_converter(square)
-    cells = []
+    cells = []  # A list of the cells occupied by the new ship placement.
     if orientation == "vertical":
         for i in range(0, length):
             cells.append((coords[0] + i, coords[1]))
     elif orientation == "horizontal":
         for i in range(0, length):
             cells.append((coords[0], coords[1] + i))
-    for cell in cells:
+    for cell in cells:  # Puts all cells adjacent to [cell] in the bad_ideas list.
         if cell not in bad_ideas:
             bad_ideas.append(cell)
             # print("Added new bad idea at ", cell)
@@ -295,7 +296,7 @@ def add_bad_ideas(orientation, square, length, bad_ideas):
     return bad_ideas
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # Testing stuff
     player_board, player_dict = ship_placement_player(playerBoard)
     ai_board, ai_dict = ship_placement_ai(enemyBoard)
     dM.printBothBoards(player_board, ai_board)

@@ -1,9 +1,9 @@
 import random
 
-#Go over rules
-#Decide who starts through a game of rock, paper, scissor
- # add letters
- # lowercase RPS , add space after input
+# Go over rules
+# Decide who starts through a game of rock, paper, scissor
+# add letters
+# lowercase RPS , add space after input
 
 
 def Start():

@@ -2,11 +2,11 @@ import random
 
 # Go over rules
 # Decide who starts through a game of rock, paper, scissor
-# add letters
-# lowercase RPS , add space after input
+
 
 
 def Start():
+    #this function displays the rules for the player
     print("Welcome to Battleship! Do you know the rules of Battleship?")
     display_rules = False
     while display_rules == False:
@@ -38,8 +38,10 @@ def Start():
             print("Error: That is not a valid entry")
 
 
-# Whoever wins starts the game
+
 def RockPaperScissors():
+    # This function lets the player play rock, paper, scissors against AI
+    # Whoever wins starts the game
     print("Play rock, paper, scissors to decide who shoots first!")
     # True = player wins
     # False = AI wins

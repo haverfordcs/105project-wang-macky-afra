@@ -79,11 +79,13 @@ def playerShot(playerBoard, enemyBoard, ai_ship_location_dict):
     while firing == 1:
         target = input("Where would you like to shoot? Enter the coordinates in the form 'A0': ")
         if check_valid_coordinates(target) == True:
+            # defines row and column of target
             row = coordinate_converter(target)[1]
             column = coordinate_converter(target)[0]
 
             # Hit
             if enemyBoard[row][column] == "I":
+                # Converts invisible enemy ship to visible hit enemy ship
                 enemyBoard[row][column] = "X"
                 ship, sunk = check_sink(ai_ship_location_dict, enemyBoard)
                 printBothBoards(playerBoard, hideHidden(enemyBoard))
@@ -105,6 +107,10 @@ def playerShot(playerBoard, enemyBoard, ai_ship_location_dict):
     # x = input("Press enter to continue")
 
 
+###############################################################################
+# The code below is NOT used. This was the first attempt at smart AI shooting.
+# The current version can be found in altshooting.py
+###############################################################################
 enemyShotHitTrackerPerShip = []
 enemyShotPreviousHit = ()
 enemyShotTargetAcquired = False
